@@ -1,0 +1,7 @@
+{
+  "command": ["claude"],
+  "prompt_as_argument": true,
+  "terminal": null,
+  "prompt_file": null,
+  "queue_dir": null
+}

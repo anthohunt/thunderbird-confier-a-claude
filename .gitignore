@@ -1,0 +1,9 @@
+__pycache__/
+*.pyc
+*.xpi
+host/*.sh
+host/*.bat
+host/manifests/
+config.json
+node_modules/
+RAPPORT-PREPARATION.md
