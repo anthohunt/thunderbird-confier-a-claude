@@ -1,0 +1,31 @@
+{
+  "manifest_version": 2,
+  "name": "Hand to AI (Claude Code bridge)",
+  "version": "3.0.0",
+  "description": "Right-click a mail to hand its thread and attachments to a command-line AI agent. Also lets that agent open pre-filled Reply / Reply all / Forward / New windows in Thunderbird; you always review and press Send yourself.",
+  "author": "Anthony Hunt",
+  "icons": {
+    "16": "icons/robot-16.png",
+    "32": "icons/robot-32.png",
+    "48": "icons/robot-48.png",
+    "64": "icons/robot-64.png"
+  },
+  "applications": {
+    "gecko": {
+      "id": "hand-to-ai@example.org",
+      "strict_min_version": "115.0"
+    }
+  },
+  "permissions": [
+    "messagesRead",
+    "menus",
+    "downloads",
+    "notifications",
+    "nativeMessaging",
+    "compose",
+    "accountsRead"
+  ],
+  "background": {
+    "scripts": ["background.js", "reply.js"]
+  }
+}

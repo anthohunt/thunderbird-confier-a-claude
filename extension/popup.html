@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Hand to AI</title>
+  <style>
+    :root { --bg:#fff; --fg:#1a1a1a; --muted:#666; --border:#ccc; --accent:#2b6cb0; --field:#fff; }
+    @media (prefers-color-scheme: dark) {
+      :root { --bg:#1f1f22; --fg:#eaeaea; --muted:#a0a0a0; --border:#444; --accent:#4a90d9; --field:#2a2a2e; }
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; height: 100%; }
+    body { background:var(--bg); color:var(--fg); font:13px/1.45 system-ui,-apple-system,"Segoe UI",sans-serif;
+           display:flex; flex-direction:column; padding:14px; gap:10px; }
+    .subject { font-weight:600; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+    .subject .lbl { color:var(--muted); font-weight:400; }
+    label { color:var(--muted); font-size:12px; }
+    textarea { flex:1 1 auto; min-height:90px; resize:vertical; width:100%; padding:8px; border:1px solid var(--border);
+               border-radius:6px; background:var(--field); color:var(--fg); font:inherit; }
+    textarea:focus { outline:2px solid var(--accent); border-color:var(--accent); }
+    .hint { color:var(--muted); font-size:11px; margin:-4px 0 0; }
+    .row { display:flex; justify-content:flex-end; gap:8px; }
+    button { padding:7px 16px; border-radius:6px; border:1px solid var(--border); background:transparent; color:var(--fg); font:inherit; cursor:pointer; }
+    button.primary { background:var(--accent); color:#fff; border-color:var(--accent); font-weight:600; }
+  </style>
+</head>
+<body>
+  <div class="subject"><span class="lbl">Subject:</span> <span id="subject">(mail)</span></div>
+  <label for="instruction">Instruction (optional)</label>
+  <textarea id="instruction" placeholder="Example: summarise this thread and list the open questions."></textarea>
+  <p class="hint">Leave empty for the default prompt. Ctrl+Enter to send to the AI.</p>
+  <div class="row">
+    <button id="cancel" type="button">Cancel</button>
+    <button id="confide" type="button" class="primary">Hand over</button>
+  </div>
+  <script src="popup.js"></script>
+</body>
+</html>
