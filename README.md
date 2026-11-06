@@ -1,6 +1,6 @@
 # thunderbird-confier-a-claude
 
-Two ways to connect Thunderbird to a command-line AI agent such as [Claude Code](https://docs.claude.com/en/docs/claude-code):
+Two ways to connect Thunderbird to a command-line AI agent such as [Claude Code](https://code.claude.com/docs/en/overview):
 
 1. **Hand to AI** (mail → agent). Right-click a mail, type an optional instruction. The whole thread and its attachments are exported to a folder and your agent is started in a terminal on that folder, with a ready-made prompt.
 2. **Reply bridge** (agent → mail). The agent, or you, runs `cli/tb_reply.py` and a real **Reply / Reply all / Forward / New** window opens in Thunderbird, **inside the existing thread** (quote and threading kept), body pre-filled, attachments added. **You review and press Send yourself**: the tool never sends anything.
@@ -23,7 +23,7 @@ Then, in Thunderbird:
 - **Quick try (always works):** menu ☰ → Add-ons and Themes → ⚙ → *Debug Add-ons* → *Load Temporary Add-on…* → pick `extension/manifest.json`. Lasts until Thunderbird restarts.
 - **Permanent:** install `extension/hand-to-ai.xpi` (⚙ → *Install Add-on From File…*). Thunderbird only accepts signed add-ons by default: either sign the package yourself as an unlisted add-on at addons.thunderbird.net, or, on a build that allows it, set `xpinstall.signatures.required` to `false` in the Config Editor.
 
-Native host locations: Linux `~/.mozilla/native-messaging-hosts/` (and `~/.thunderbird/…`), macOS `~/Library/Application Support/Mozilla/NativeMessagingHosts/`, Windows registry `HKCU\Software\Mozilla\NativeMessagingHosts\<name>` ([Mozilla documentation](https://developer.mozilla.org/en-US/Add-ons/WebExtensions/Native_manifests)). The author's daily use was on Windows; the Linux and macOS paths follow the documentation and were checked with a simulated extension, not with a real Thunderbird.
+Native host locations: Linux `~/.mozilla/native-messaging-hosts/` (and `~/.thunderbird/…`), macOS `~/Library/Application Support/Mozilla/NativeMessagingHosts/`, Windows registry `HKCU\Software\Mozilla\NativeMessagingHosts\<name>` ([Mozilla documentation](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/Native_manifests)). The author's daily use was on Windows; the Linux and macOS paths follow the documentation and were checked with a simulated extension, not with a real Thunderbird.
 
 ## Settings
 Copy `config.example.json` to `~/.config/thunderbird-confier-a-claude/config.json` (Windows: `%APPDATA%\thunderbird-confier-a-claude\config.json`), or point `TB_CONFIRMER_CONFIG` at another file. Every key is optional.
@@ -70,3 +70,7 @@ CLI tb_reply.py --(JSON file in queue/inbox)--> bridge_host.py (persistent nativ
 
 ## Licenses
 Code: Apache License 2.0 (`LICENSE`, `NOTICE`). Text and documentation: CC BY 4.0 (`LICENSE-docs`). The icons in `extension/icons/` were generated for this project (a plain geometric drawing), under the same terms. No third-party library is included.
+
+---
+
+**Anthony Hunt** · [Project page on ingevision.cloud](https://ingevision.cloud/?lang=en&p=thunderbird-agent) · [LinkedIn](https://www.linkedin.com/in/anthony-hunt-3948a9196) · [GitHub profile](https://github.com/anthohunt)
