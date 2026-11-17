@@ -17,7 +17,13 @@
 
 ## Architecture
 
+![Architecture : le module exporte le fil dans un dossier et appelle un hôte natif ponctuel qui lance l'agent ; l'agent lance tb_reply.py, qui dépose une commande JSON dans un dossier file lu par un hôte natif permanent, qui la passe au reply.js du module, qui ouvre la fenêtre de réponse](docs/architecture.svg)
+
+<details><summary>Diagramme en français</summary>
+
 ![Architecture : le module exporte le fil dans un dossier et appelle un hôte natif ponctuel qui lance l'agent ; l'agent lance tb_reply.py, qui dépose une commande JSON dans un dossier file lu par un hôte natif permanent, qui la passe au reply.js du module, qui ouvre la fenêtre de réponse](docs/architecture.fr.svg)
+
+</details>
 
 ## Installation
 

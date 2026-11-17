@@ -19,6 +19,12 @@
 
 ![Architecture: the add-on exports the thread to a folder and calls a one-shot native host that starts the agent; the agent runs tb_reply.py, which drops a JSON command in a queue folder read by a persistent native host, which passes it to the add-on's reply.js, which opens the reply window](docs/architecture.svg)
 
+<details><summary>French version</summary>
+
+![Architecture : le module exporte le fil dans un dossier et appelle un hôte natif ponctuel qui lance l'agent ; l'agent lance tb_reply.py, qui dépose une commande JSON dans un dossier file lu par un hôte natif permanent, qui la passe au reply.js du module, qui ouvre la fenêtre de réponse](docs/architecture.fr.svg)
+
+</details>
+
 ## Install
 
 Thunderbird 115 or newer, Python 3.8 or newer, your agent's command on the PATH (default `claude`).
