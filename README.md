@@ -2,23 +2,22 @@
 
 # Hand to AI for Thunderbird
 
-**Right-click a mail in Thunderbird to hand its thread to a command-line AI agent; the agent opens pre-filled replies that you send yourself.**
+**Right-click a mail in Thunderbird to hand its thread to a command-line AI agent; a command then opens pre-filled replies in Thunderbird that you send yourself.**
 
 [![Right-click a thread, Hand to AI, the thread lands in a folder, Claude Code drafts the answer, a Reply all opens pre-filled in Thunderbird (click for the full video)](docs/demo.gif)](https://drive.google.com/file/d/1dxDcTe66kMsXDhIvdrtuL_6a-FysO6Fo/view)
 
-*Real run in Thunderbird 159 on a demo account with made-up mails. [Full video (0:57)](https://drive.google.com/file/d/1dxDcTe66kMsXDhIvdrtuL_6a-FysO6Fo/view)*
+*Thunderbird steps filmed live on a demo account with made-up mails (interface in French); Claude Code was run by hand on a copy of the exported folder (see Status). [Full video (0:57)](https://drive.google.com/file/d/1dxDcTe66kMsXDhIvdrtuL_6a-FysO6Fo/view)*
 
 ## Using it
 
 - **Hand to AI.** Right-click a mail, type an optional instruction, press *Hand over*.
-- **One folder per mail.** The whole thread (`NN-message.txt`), its attachments and the prompt (`INSTRUCTIONS.md`) go to `Downloads/claude-mail/<date>_<subject>/`.
+- **One folder per mail.** The whole thread (`NN-message.txt`), its attachments and the prompt (`INSTRUCTIONS.md`) go to `claude-mail/<date>_<time>_<subject>/` in Thunderbird's download folder.
 - **Your agent.** Claude Code by default; any command-line agent through `config.json`.
-- **Reply bridge.** `cli/tb_reply.py` opens a Reply, Reply all, Forward or New window inside the thread, body and attachments filled in.
-- **You send.** The tool only opens windows; it never sends a mail.
+- **Reply bridge.** `cli/tb_reply.py`, run by you or by your agent when your instruction mentions it, opens a Reply, Reply all or Forward window inside the thread, or a New one, body and attachments filled in. Nothing is sent.
 
 ## Architecture
 
-![Architecture: the add-on exports the thread to a folder and calls a one-shot native host that starts the agent; the agent runs tb_reply.py, which drops a JSON command in a queue folder read by a persistent native host, and the add-on opens the reply window](docs/architecture.svg)
+![Architecture: the add-on exports the thread to a folder and calls a one-shot native host that starts the agent; the agent runs tb_reply.py, which drops a JSON command in a queue folder read by a persistent native host, which passes it to the add-on's reply.js, which opens the reply window](docs/architecture.svg)
 
 ## Install
 
@@ -27,13 +26,13 @@ Thunderbird 115 or newer, Python 3.8 or newer, your agent's command on the PATH 
 ```
 git clone https://github.com/anthohunt/thunderbird-confier-a-claude && cd thunderbird-confier-a-claude
 python3 install.py           # registers the two native hosts, builds extension/hand-to-ai.xpi
-python3 tests/test_hosts.py  # optional: three OK lines
+python3 tests/test_hosts.py  # optional, Linux/macOS: three OK lines
 ```
 
-In Thunderbird: ☰ → Add-ons and Themes → ⚙ → *Debug Add-ons* → *Load Temporary Add-on…* → `extension/manifest.json` (until the next restart), or ⚙ → *Install Add-on From File…* → `extension/hand-to-ai.xpi` (unsigned: sign it as an unlisted add-on, or set `xpinstall.signatures.required` to `false` where the build allows it).
+In Thunderbird: ☰ → Add-ons and Themes → ⚙ → *Debug Add-ons* → *Load Temporary Add-on…* → `extension/manifest.json` (until the next restart), or ⚙ → *Install Add-on From File…* → `extension/hand-to-ai.xpi` (unsigned: set `xpinstall.signatures.required` to `false` in the Config Editor, as for the demo, or sign it as an unlisted add-on).
 
 <details>
-<summary>Reply bridge commands</summary>
+<summary>Reply bridge</summary>
 
 ```
 python3 cli/tb_reply.py --ping
@@ -43,7 +42,7 @@ python3 cli/tb_reply.py --mode forward --subject "Quarterly report" --to bob@exa
 python3 cli/tb_reply.py --mode new --to a@example.org --subject "Invoices" --body-file body.html --attach inv1.pdf inv2.pdf
 ```
 
-`--subject` searches the mail to answer (the most recent match; add `--author` to be sure), `--new-subject` rewrites it, `--body-file` is an HTML fragment placed above the quote. The answer is one JSON line: the matched mail, the subject set, the attachments added. Thunderbird must be running.
+`--subject` searches the mail to answer (the most recent match; add `--author` to be sure; with `new` it is the subject itself), `--new-subject` rewrites it, `--body-file` is an HTML fragment placed above the quote. The answer is one JSON line: the matched mail, the subject set, the attachments added. Thunderbird must be running.
 </details>
 
 <details>
@@ -63,9 +62,9 @@ python3 cli/tb_reply.py --mode new --to a@example.org --subject "Invoices" --bod
 ## Status
 
 - **Checked on 17/11/2026** on Windows 11 with Thunderbird 159: right-click export, instruction window and reply bridge (Reply all, Cc kept, attachment added) work.
-- **Known issue on Windows.** Started from Thunderbird, the agent's terminal does not appear (Thunderbird ends what its native host starts); the folder and `INSTRUCTIONS.md` are written. The same launcher works when started by hand. The author's private version goes through a Windows scheduled task; that fix is not in this repository yet.
-- **Linux and macOS** follow the Mozilla documentation and pass the simulated tests (`tests/test_hosts.py`); not tried with a real Thunderbird.
-- **Thread** rebuilt by subject (Thunderbird has no thread API); cut at 50 messages.
+- **Known issue on Windows.** Started from Thunderbird, the agent's terminal does not appear (Thunderbird ends what its native host starts); the folder and `INSTRUCTIONS.md` are written, and the same launcher works when started by hand.
+- **Linux and macOS** follow the Mozilla documentation; the simulated tests (`tests/test_hosts.py`) pass on Linux. Not tried with a real Thunderbird.
+- **Thread** rebuilt by subject (Thunderbird has no thread API): mails with the same subject in any folder are included; cut at 50 messages. Attachments of type `text/*` are skipped.
 - **Privacy.** A handed-over thread is read by your agent and its provider.
 - **License.** Code Apache 2.0, text CC BY 4.0.
 
