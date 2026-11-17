@@ -6,6 +6,12 @@
 
 [![Right-click a thread, Hand to AI, the thread lands in a folder, Claude Code drafts the answer, a Reply all opens pre-filled in Thunderbird (click for the full video)](docs/demo.gif)](https://drive.google.com/file/d/1dxDcTe66kMsXDhIvdrtuL_6a-FysO6Fo/view)
 
+<details><summary>French version</summary>
+
+[![Clic droit sur un fil, Hand to AI, le fil arrive dans un dossier, Claude Code rédige la réponse, une réponse à tous s'ouvre pré-remplie dans Thunderbird (cliquer pour la vidéo complète)](docs/demo.fr.gif)](https://drive.google.com/file/d/15RIGbanWkeWplC_GqBkeE4C5NKbEv9G2/view)
+
+</details>
+
 *Thunderbird steps filmed live on a demo account with made-up mails (interface in French); Claude Code was run by hand on a copy of the exported folder (see Status). [Full video (0:57)](https://drive.google.com/file/d/1dxDcTe66kMsXDhIvdrtuL_6a-FysO6Fo/view)*
 
 ## Using it

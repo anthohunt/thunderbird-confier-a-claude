@@ -4,7 +4,13 @@
 
 **Un clic droit sur un mail dans Thunderbird confie le fil à un agent IA en ligne de commande ; une commande ouvre ensuite dans Thunderbird des réponses pré-remplies que vous envoyez vous-même.**
 
+[![Clic droit sur un fil, Hand to AI, le fil arrive dans un dossier, Claude Code rédige la réponse, une réponse à tous s'ouvre pré-remplie dans Thunderbird (version anglaise, cliquer pour la vidéo complète)](docs/demo.gif)](https://drive.google.com/file/d/1dxDcTe66kMsXDhIvdrtuL_6a-FysO6Fo/view)
+
+<details><summary>Version française</summary>
+
 [![Clic droit sur un fil, Hand to AI, le fil arrive dans un dossier, Claude Code rédige la réponse, une réponse à tous s'ouvre pré-remplie dans Thunderbird (cliquer pour la vidéo complète)](docs/demo.fr.gif)](https://drive.google.com/file/d/15RIGbanWkeWplC_GqBkeE4C5NKbEv9G2/view)
+
+</details>
 
 *Étapes Thunderbird filmées en vrai, sur un compte de démonstration aux mails inventés ; Claude Code a été lancé à la main sur une copie du dossier exporté (voir État). [Vidéo complète (0:57)](https://drive.google.com/file/d/15RIGbanWkeWplC_GqBkeE4C5NKbEv9G2/view)*
 
