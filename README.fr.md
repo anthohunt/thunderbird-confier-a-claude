@@ -1,0 +1,74 @@
+[English](README.md) · **Français**
+
+# Hand to AI pour Thunderbird
+
+**Un clic droit sur un mail dans Thunderbird confie le fil à un agent IA en ligne de commande ; l'agent ouvre des réponses pré-remplies que vous envoyez vous-même.**
+
+[![Clic droit sur un fil, Hand to AI, le fil arrive dans un dossier, Claude Code rédige la réponse, une réponse à tous s'ouvre pré-remplie dans Thunderbird (cliquer pour la vidéo complète)](docs/demo.fr.gif)](https://drive.google.com/file/d/15RIGbanWkeWplC_GqBkeE4C5NKbEv9G2/view)
+
+*Vraie passe dans Thunderbird 159, sur un compte de démonstration aux mails inventés. [Vidéo complète (0:57)](https://drive.google.com/file/d/15RIGbanWkeWplC_GqBkeE4C5NKbEv9G2/view)*
+
+## Ce qu'on fait avec
+
+- **Hand to AI.** Clic droit sur un mail, consigne facultative, puis *Hand over*.
+- **Un dossier par mail.** Tout le fil (`NN-message.txt`), ses pièces jointes et la consigne (`INSTRUCTIONS.md`) vont dans `Téléchargements/claude-mail/<date>_<sujet>/`.
+- **Votre agent.** Claude Code par défaut ; tout agent en ligne de commande via `config.json`.
+- **Pont de réponse.** `cli/tb_reply.py` ouvre une fenêtre Répondre, Répondre à tous, Transférer ou Nouveau dans le fil, texte et pièces jointes remplis.
+- **Vous envoyez.** L'outil ouvre des fenêtres ; il n'envoie jamais de mail.
+
+## Architecture
+
+![Architecture : le module exporte le fil dans un dossier et appelle un hôte natif ponctuel qui lance l'agent ; l'agent lance tb_reply.py, qui dépose une commande JSON dans un dossier file lu par un hôte natif permanent, et le module ouvre la fenêtre de réponse](docs/architecture.fr.svg)
+
+## Installation
+
+Thunderbird 115 ou plus, Python 3.8 ou plus, la commande de votre agent dans le PATH (par défaut `claude`).
+
+```
+git clone https://github.com/anthohunt/thunderbird-confier-a-claude && cd thunderbird-confier-a-claude
+python3 install.py           # enregistre les deux hôtes natifs, construit extension/hand-to-ai.xpi
+python3 tests/test_hosts.py  # facultatif : trois lignes OK
+```
+
+Dans Thunderbird : ☰ → Modules et thèmes → ⚙ → *Déboguer des modules* → *Charger un module temporaire…* → `extension/manifest.json` (jusqu'au prochain redémarrage), ou ⚙ → *Installer un module depuis un fichier…* → `extension/hand-to-ai.xpi` (non signé : le signer comme module non listé, ou mettre `xpinstall.signatures.required` à `false` quand la version le permet).
+
+<details>
+<summary>Commandes du pont de réponse</summary>
+
+```
+python3 cli/tb_reply.py --ping
+python3 cli/tb_reply.py --mode replyAll --subject "Quarterly report" --body-file body.html --attach report.pdf
+python3 cli/tb_reply.py --mode reply --author alice --subject "Quarterly report" --body-file body.html
+python3 cli/tb_reply.py --mode forward --subject "Quarterly report" --to bob@example.org --body-file body.html
+python3 cli/tb_reply.py --mode new --to a@example.org --subject "Invoices" --body-file body.html --attach inv1.pdf inv2.pdf
+```
+
+`--subject` cherche le mail auquel répondre (le plus récent ; ajouter `--author` pour être sûr), `--new-subject` le réécrit, `--body-file` est un fragment HTML placé au-dessus de la citation. La réponse est une ligne JSON : le mail trouvé, le sujet posé, les pièces jointes ajoutées. Thunderbird doit être ouvert.
+</details>
+
+<details>
+<summary>Réglages</summary>
+
+`~/.config/thunderbird-confier-a-claude/config.json` (Windows : `%APPDATA%\thunderbird-confier-a-claude\config.json`), ou le fichier nommé par `TB_CONFIRMER_CONFIG`. Toutes les clés sont facultatives ; voir `config.example.json`.
+
+| Clé | Par défaut | Rôle |
+|---|---|---|
+| `command` | `["claude"]` | Agent lancé dans le dossier du mail (programme et arguments). |
+| `prompt_as_argument` | `true` | Ajoute la consigne en dernier argument ; elle est toujours aussi dans `INSTRUCTIONS.md`. |
+| `terminal` | auto | Préfixe du terminal, par exemple `["gnome-terminal", "--"]`. |
+| `prompt_file` | `host/prompt.md` | Modèle de consigne (`{{SUBJECT}} {{FROM}} {{DATE}} {{COUNT}} {{THREAD}} {{FOLDER}} {{INSTRUCTION}}`). |
+| `queue_dir` | `<dossier de config>/queue` | Où la ligne de commande et l'hôte du pont échangent les commandes. Qui peut y écrire peut ouvrir des fenêtres de rédaction. |
+</details>
+
+## État
+
+- **Vérifié le 17/11/2026** sous Windows 11 avec Thunderbird 159 : export au clic droit, fenêtre de consigne et pont de réponse (Répondre à tous, copie gardée, pièce jointe ajoutée) fonctionnent.
+- **Défaut connu sous Windows.** Lancé depuis Thunderbird, le terminal de l'agent n'apparaît pas (Thunderbird arrête ce que lance son hôte natif) ; le dossier et `INSTRUCTIONS.md` sont bien écrits. Le même lanceur marche quand on le lance à la main. La version privée de l'auteur passe par une tâche planifiée Windows ; cette correction n'est pas encore dans ce dépôt.
+- **Linux et macOS** suivent la documentation de Mozilla et passent les tests simulés (`tests/test_hosts.py`) ; pas essayés avec un vrai Thunderbird.
+- **Fil** reconstitué par le sujet (Thunderbird n'a pas d'API de fil) ; coupé à 50 messages.
+- **Confidentialité.** Un fil confié est lu par votre agent et son fournisseur.
+- **Licence.** Code Apache 2.0, textes CC BY 4.0.
+
+---
+
+**Anthony Hunt** · [ingevision.cloud](https://ingevision.cloud/?lang=fr&p=thunderbird-agent) · [LinkedIn](https://www.linkedin.com/in/anthony-hunt-3948a9196) · [GitHub](https://github.com/anthohunt)
