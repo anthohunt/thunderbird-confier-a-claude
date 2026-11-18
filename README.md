@@ -4,15 +4,15 @@
 
 **Right-click a mail in Thunderbird to hand its thread to a command-line AI agent; a command then opens pre-filled replies in Thunderbird that you send yourself.**
 
-[![Right-click a thread, Hand to AI, the thread lands in a folder, Claude Code drafts the answer, a Reply all opens pre-filled in Thunderbird (click for the full video)](docs/demo.gif)](https://drive.google.com/file/d/1dxDcTe66kMsXDhIvdrtuL_6a-FysO6Fo/view)
+![Right-click a thread, Hand to AI, the thread lands in a folder, Claude Code drafts the answer, a Reply all opens pre-filled in Thunderbird](docs/demo.gif)
 
 <details><summary>French version</summary>
 
-[![Clic droit sur un fil, Hand to AI, le fil arrive dans un dossier, Claude Code rédige la réponse, une réponse à tous s'ouvre pré-remplie dans Thunderbird (cliquer pour la vidéo complète)](docs/demo.fr.gif)](https://drive.google.com/file/d/15RIGbanWkeWplC_GqBkeE4C5NKbEv9G2/view)
+![Clic droit sur un fil, Hand to AI, le fil arrive dans un dossier, Claude Code rédige la réponse, une réponse à tous s'ouvre pré-remplie dans Thunderbird](docs/demo.fr.gif)
 
 </details>
 
-*Thunderbird steps filmed live on a demo account with made-up mails (interface in French); Claude Code was run by hand on a copy of the exported folder (see Status). [Full video (0:57)](https://drive.google.com/file/d/1dxDcTe66kMsXDhIvdrtuL_6a-FysO6Fo/view)*
+*Thunderbird steps filmed live on a demo account with made-up mails (interface in French); Claude Code was run by hand on a copy of the exported folder (see Status).*
 
 ## Using it
 
